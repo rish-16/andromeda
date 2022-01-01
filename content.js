@@ -1,22 +1,51 @@
-function getHTML() {
-    var array = []
-    var elements = document.body.getElementsByTagName("*")
-    for(var i = 0; i < elements.length; i++) {
-        var current = elements[i]
-        if(current.children.length === 0 && current.textContent.replace(/ |\n/g,'') !== '') {
-            array.push(current.textContent)
+function parseLaTeX(text) {
+    console.log(text)
+    var splitText = text.split("$$")
+    var indices = []
+
+    console.log(splitText.length)
+
+    if (splitText.length == 1) {
+        return text
+    }
+
+    for (var i = 0; i < splitText.length; i++) {
+        if (i % 2 != 0) {
+            splitText[i] = "<<ANDRO_PLACEHOLDER>>"
+            indices.push(i)
         }
-    } 
+    }
 
-    return array
+    // var regExp = /\$\$(.*?)\$\$/gmiu
+    var regExp = /(?<=\$\$).+?(?=\$\$)/gmiu
+    var matches = text.match(regExp)
+    var renders = []
+    for (var i = 0; i < matches.length; i++) {
+        if (i % 2 == 0) {
+            var part = matches[i]
+            var rendered = katex.renderToString(part, {
+                throwOnError: false
+            })
+            renders.push(rendered)
+        }
+    }
+
+    for (var i = 0; i < indices.length; i++) {
+        var idx = indices[i]
+        splitText[idx] = renders[i]
+    }
+
+    var finalRender = splitText.join(" ")
+
+    return finalRender
 }
 
-function findLatexSources(html) {
-    // returns indices for places where there are 
-    return null
+function processText(element) {
+    var originalText = element.innerText
+    console.log(originalText)
+    var render = parseLaTeX(originalText)
+    element.innerHTML = render
+    element.style.color = "green"
 }
 
-function replaceTextWithLatex() {}
-
-const html = getHTML()
-console.log(html)
+document.querySelectorAll('p').forEach(e => processText(e));

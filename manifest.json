@@ -17,7 +17,11 @@
             "matches":[
                 "*://*.substack.com/*"
             ],
-            "js": ["content.js"]
+            "js": [
+                "katex.min.js",
+                "auto-render.min.js",
+                "content.js"
+            ]
         }
     ]
 }
