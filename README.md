@@ -1,2 +1,2 @@
 # andromeda
-Chrome extension that adds LaTeX rendering support to Substack articles
+Chrome extension that renders LaTeX in Substack articles.
