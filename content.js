@@ -1,9 +1,18 @@
+window.WebFontConfig = {
+    custom: {
+        families: ['KaTeX_AMS', 'KaTeX_Caligraphic:n4,n7', 'KaTeX_Fraktur:n4,n7',
+            'KaTeX_Main:n4,n7,i4,i7', 'KaTeX_Math:i4,i7', 'KaTeX_Script',
+            'KaTeX_SansSerif:n4,n7,i4', 'KaTeX_Size1', 'KaTeX_Size2', 'KaTeX_Size3',
+            'KaTeX_Size4', 'KaTeX_Typewriter'],
+    },
+};
+
 function parseLaTeX(text) {
     console.log(text)
     var splitText = text.split("$$")
     var indices = []
 
-    console.log(splitText.length)
+    console.log(splitText)
 
     if (splitText.length == 1) {
         return text
@@ -11,7 +20,6 @@ function parseLaTeX(text) {
 
     for (var i = 0; i < splitText.length; i++) {
         if (i % 2 != 0) {
-            splitText[i] = "<<ANDRO_PLACEHOLDER>>"
             indices.push(i)
         }
     }
@@ -44,8 +52,8 @@ function processText(element) {
     var originalText = element.innerText
     console.log(originalText)
     var render = parseLaTeX(originalText)
+    console.log(render)
     element.innerHTML = render
-    element.style.color = "green"
 }
 
 document.querySelectorAll('p').forEach(e => processText(e));

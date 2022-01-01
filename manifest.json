@@ -18,9 +18,12 @@
                 "*://*.substack.com/*"
             ],
             "js": [
-                "katex.min.js",
-                "auto-render.min.js",
+                "katex/katex.min.js",
+                "katex/contrib/auto-render.min.js",
                 "content.js"
+            ],
+            "css": [
+                "katex/katex.min.css"
             ]
         }
     ]
