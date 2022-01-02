@@ -8,11 +8,8 @@ window.WebFontConfig = {
 };
 
 function parseLaTeX(text) {
-    console.log(text)
     var splitText = text.split("$$")
     var indices = []
-
-    console.log(splitText)
 
     if (splitText.length == 1) {
         return text
@@ -50,9 +47,7 @@ function parseLaTeX(text) {
 
 function processText(element) {
     var originalText = element.innerText
-    console.log(originalText)
     var render = parseLaTeX(originalText)
-    console.log(render)
     element.innerHTML = render
 }
 
